@@ -1,0 +1,27 @@
+{
+  "name": "nova-preview",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build && vite build --ssr src/prerender.tsx --outDir .prerender && node scripts/prerender.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "sync-release": "node scripts/sync-release.mjs",
+    "test": "node --test scripts/release.test.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.577.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "prettier": "^3.9.9",
+    "typescript": "^5.9.0",
+    "vite": "^7.0.0"
+  }
+}

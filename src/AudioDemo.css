@@ -1,0 +1,454 @@
+.nova-player {
+  color-scheme: light;
+  color: #35283b;
+  background: linear-gradient(155deg, #f7d6f5 0%, #f5e4f5 56%, #fcf7fc 100%);
+  border: 1px solid #fbecfa;
+  padding: 21px;
+  border-radius: 30px;
+  box-shadow: 0 24px 80px #0005;
+  width: 100%;
+  max-width: 550px;
+  justify-self: center;
+  font-size: 13px;
+}
+.nova-player button,
+.nova-player a {
+  color: inherit;
+}
+.nova-player button {
+  cursor: pointer;
+}
+.nova-player-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: #755775;
+  margin-bottom: 22px;
+}
+.nova-player-toolbar button,
+.nova-player-toolbar > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 36px;
+  min-height: 44px;
+}
+.nova-player-toolbar button:last-child {
+  margin-left: auto;
+}
+.nova-demo-label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  border: 1px solid #ae8dad;
+  border-radius: 5px;
+  padding: 3px 5px;
+}
+.nova-chapter-list {
+  padding: 12px;
+  background: #fff9;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+.nova-chapter-list button {
+  width: 100%;
+  text-align: left;
+  min-height: 44px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.nova-book {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 23px;
+  align-items: center;
+}
+.nova-book-cover {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 3/4;
+  background:
+    radial-gradient(ellipse at 18% 85%, #bccece, transparent 65%),
+    linear-gradient(135deg, #eee8d8, #d9e5e0);
+  box-shadow: 0 6px 15px #68536520;
+  padding: 17px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #324d4c;
+}
+.nova-book-cover small {
+  font-size: 10px;
+  letter-spacing: 2px;
+  line-height: 1.5;
+}
+.nova-book-cover strong {
+  font-family: Georgia, serif;
+  font-size: clamp(25px, 3vw, 40px);
+  font-weight: 400;
+  z-index: 1;
+}
+.nova-book-cover > span {
+  font-size: 8px;
+  letter-spacing: 1.4px;
+  z-index: 1;
+}
+.nova-book-cover i {
+  position: absolute;
+  font-size: 140px;
+  color: #fff8;
+  bottom: -20px;
+  right: -24px;
+  font-style: normal;
+}
+.nova-book-info > p {
+  font-size: 18px;
+  font-weight: 750;
+  margin-bottom: 12px;
+}
+.nova-book-info h3 {
+  font-size: 24px;
+  margin-bottom: 9px;
+}
+.nova-book-info > span {
+  display: block;
+  line-height: 1.5;
+  color: #665469;
+}
+.nova-book-info > small {
+  display: block;
+  font-size: 10px;
+  color: #77607a;
+  margin-top: 20px;
+}
+.nova-book-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #715b74;
+  font-size: 11px;
+  margin-top: 20px;
+}
+.nova-bookmarks {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.nova-bookmarks > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: #ffffff35;
+  border: 1px solid #c9aac7;
+  min-height: 44px;
+  border-radius: 10px;
+  flex: 1;
+  font-size: 12px;
+}
+.nova-bookmarks > button:hover {
+  background: #ffffff80;
+}
+.nova-series {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 12px;
+  color: #826b84;
+  padding: 16px 0;
+}
+.nova-progress-card {
+  background: #fffd;
+  border: 1px solid #fffe;
+  border-radius: 17px;
+  padding: 17px 17px 13px;
+}
+.nova-progress-title,
+.nova-times,
+.nova-remaining {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.nova-progress-title {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.nova-progress-title strong {
+  color: #8a488c;
+}
+.nova-progress {
+  width: 100%;
+  min-height: 28px;
+  accent-color: #a556aa;
+  cursor: pointer;
+}
+.nova-times {
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  color: #937896;
+}
+.nova-remaining {
+  color: #8a738d;
+  font-size: 11px;
+  margin-top: 12px;
+}
+.nova-remaining strong {
+  color: #957497;
+  font-weight: 500;
+}
+.nova-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 15px;
+  gap: 6px;
+  color: #aa5faf;
+}
+.nova-controls button {
+  min-width: 42px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.nova-controls button:hover {
+  background: #f2e4f3;
+}
+.nova-controls .nova-play {
+  width: 67px;
+  height: 67px;
+  background: #a557a9;
+  color: #fff;
+  box-shadow: 0 4px 14px #a557a933;
+}
+.nova-controls .nova-play:hover {
+  background: #904595;
+}
+.nova-skip {
+  position: relative;
+}
+.nova-skip small {
+  position: absolute;
+  font-size: 9px;
+  font-weight: 750;
+  top: 17px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.nova-settings {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  background: #fffb;
+  border-radius: 15px;
+  margin-top: 13px;
+  padding: 12px 4px;
+  gap: 3px;
+}
+.nova-settings > label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: center;
+  color: #77537b;
+  font-size: 10px;
+}
+.nova-settings > label + label {
+  border-left: 1px solid #eaddea;
+}
+.nova-settings select {
+  color: #755379;
+  background: transparent;
+  border: 0;
+  width: 100%;
+  max-width: 100px;
+  cursor: pointer;
+  text-align: center;
+  min-height: 32px;
+  font-size: 11px;
+  padding: 0 2px;
+}
+.nova-settings input {
+  width: 70%;
+  accent-color: #a557a9;
+  min-height: 32px;
+  cursor: pointer;
+}
+.nova-settings small {
+  position: absolute;
+  top: -6px;
+  right: 6px;
+  background: #a557a9;
+  color: #fff;
+  padding: 1px 4px;
+  border-radius: 6px;
+}
+.nova-player-status {
+  min-height: 32px;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #806b83;
+  text-align: center;
+  margin-top: 12px;
+}
+.sample-credit a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.bank-support {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin: 34px 0 22px;
+}
+.bank-card {
+  padding: 27px;
+  border-radius: 15px;
+  background: #1e2b24;
+  border: 1px solid #3b5647;
+}
+.bank-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.bank-card-header img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.bank-card-header h3 {
+  font-size: 19px;
+}
+.bank-card-header p {
+  color: #a6b9ae;
+  font-size: 12px;
+  margin-top: 3px;
+}
+.bank-copy {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  min-height: 55px;
+  padding: 10px 15px;
+  border: 1px solid #587263;
+  background: #142219;
+  border-radius: 9px;
+  color: #dcebe1;
+  cursor: pointer;
+}
+.bank-copy > span {
+  font-family: monospace;
+  font-size: 21px;
+  white-space: nowrap;
+}
+.bank-copy > svg {
+  flex-shrink: 0;
+  color: #b5edc6;
+}
+.bank-copy:hover {
+  background: #25392c;
+  border-color: #95cba6;
+}
+.bank-copy-status {
+  min-height: 20px;
+  margin-top: 9px;
+  font-size: 11px;
+  color: #a8c5b1;
+}
+@media (max-width: 600px) {
+  .nova-player {
+    padding: 15px;
+    border-radius: 23px;
+  }
+  .nova-player-toolbar {
+    gap: 15px;
+    margin-bottom: 16px;
+  }
+  .nova-book {
+    grid-template-columns: minmax(105px, 36%) 1fr;
+    gap: 15px;
+  }
+  .nova-book-cover {
+    padding: 13px 11px;
+  }
+  .nova-book-info > p {
+    font-size: 15px;
+  }
+  .nova-book-info h3 {
+    font-size: 22px;
+  }
+  .nova-book-info > span {
+    font-size: 11px;
+  }
+  .nova-book-info > small {
+    margin-top: 12px;
+    font-size: 9px;
+  }
+  .nova-book-meta {
+    font-size: 9px;
+  }
+  .nova-bookmarks > button {
+    font-size: 10px;
+    gap: 4px;
+  }
+  .nova-progress-card {
+    padding: 14px 12px 12px;
+  }
+  .nova-settings {
+    gap: 1px;
+  }
+  .nova-settings select {
+    font-size: 10px;
+  }
+  .bank-support {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .bank-card {
+    padding: 22px;
+  }
+  .bank-copy > span {
+    font-size: 19px;
+  }
+}
+@media (max-width: 350px) {
+  .nova-player-toolbar {
+    gap: 9px;
+  }
+  .nova-demo-label {
+    font-size: 8px;
+  }
+  .nova-book-cover small {
+    font-size: 8px;
+  }
+  .nova-book-cover > span {
+    font-size: 6px;
+  }
+  .nova-book-info > p {
+    font-size: 13px;
+  }
+  .nova-settings > label {
+    font-size: 9px;
+  }
+  .nova-bookmarks > button {
+    font-size: 9px;
+  }
+  .bank-copy {
+    padding: 10px;
+  }
+  .bank-copy > span {
+    font-size: 17px;
+  }
+}
