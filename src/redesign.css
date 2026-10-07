@@ -669,6 +669,10 @@ body {
   .nova-book {
     grid-template-columns: 120px 1fr;
   }
+  .nova-book-cover strong {
+    font-size: 29px;
+    letter-spacing: -1px;
+  }
   .nova-player-toolbar {
     margin-bottom: 12px;
   }
