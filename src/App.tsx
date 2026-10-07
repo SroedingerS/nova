@@ -18,22 +18,17 @@ import {
   MessageCircle,
   Moon,
   Palette,
-  Pause,
   Play,
   Search,
   ShieldCheck,
-  SkipBack,
-  SkipForward,
   SlidersHorizontal,
   Smartphone,
   Sparkles,
   Tv,
   X,
-  Bookmark,
-  Volume2,
   type LucideIcon,
 } from "lucide-react";
-import { faqs, features, links, scenarios, screenshots } from "./content";
+import { faqs, features, links, screenshots } from "./content";
 import release from "./release.json";
 import AudioDemo from "./AudioDemo";
 import BankSupport from "./BankSupport";
@@ -53,6 +48,7 @@ const icons: Record<string, LucideIcon> = {
 const nav = [
   { href: "#features", label: "Возможности" },
   { href: "#interface", label: "Интерфейс" },
+  { href: "#demo", label: "Плеер" },
   { href: "#start", label: "Как начать" },
   { href: "#support", label: "Поддержка" },
 ];
@@ -109,7 +105,14 @@ function Header() {
       },
       { rootMargin: "-110px 0px -45% 0px" },
     );
-    for (const id of ["top", "interface", "features", "start", "support"]) {
+    for (const id of [
+      "top",
+      "interface",
+      "features",
+      "demo",
+      "start",
+      "support",
+    ]) {
       const section = document.getElementById(id);
       if (section) observer.observe(section);
     }
@@ -211,94 +214,119 @@ function Header() {
     </header>
   );
 }
+const heroScreens = [0, 2, 5];
 function Hero() {
+  const [screen, setScreen] = useState(0);
+  const current = screenshots[heroScreens[screen]];
   return (
     <section className="hero container" id="top">
       <div className="hero-copy">
         <div className="eyebrow">
-          <span className="status-dot" />
-          АУДИОКНИГИ NOVA <span className="eyebrow-divider">/</span> ДЛЯ ANDROID
+          <span className="status-dot" /> АУДИОКНИГИ NOVA · ДЛЯ ANDROID
         </div>
         <h1>
-          Погрузитесь
+          Истории,
           <br />
-          <span className="accent-word">
-            в историю<span className="accent-period">.</span>
-          </span>
+          которые
+          <br />
+          <em>всегда рядом.</em>
         </h1>
         <p className="hero-lead">
-          Любимые книги, живые голоса и ваш ритм.
-          <br className="desktop-br" />
-          Дома, в дороге и перед сном — с Nova.
+          Откройте книгу. Найдите любимый голос.
+          <br className="desktop-br" /> Заберите историю с собой — в дорогу,
+          <br className="desktop-br" /> домой, в тихий вечер.
         </p>
         <div className="hero-buttons">
           <DownloadLink />
-          <a className="button secondary" href="#demo">
-            <Play size={17} fill="currentColor" />
-            Попробовать плеер
+          <a className="listen-link" href="#demo">
+            <span>
+              <Play size={17} fill="currentColor" />
+            </span>
+            Послушать демо
           </a>
         </div>
         <div className="hero-proof">
           <span>
-            <Check size={15} />
+            <Check size={14} />
             Бесплатно
           </span>
           <span>
-            <Check size={15} />
+            <Check size={14} />
             Без рекламы
           </span>
           <span>
-            <Check size={15} />
+            <Check size={14} />
             Android 6.0+
           </span>
         </div>
-        <a href="#interface" className="explore-link">
-          <span className="round-arrow">
-            <ArrowDown size={17} />
-          </span>
-          Загляните внутрь
+        <a href="#features" className="explore-link">
+          <ArrowDown size={18} />
+          Знакомство с Nova
         </a>
       </div>
-      <div className="hero-visual" aria-label="Превью каталога и плеера Nova">
-        <div className="orbit orbit-one" />
-        <div className="orbit orbit-two" />
-        <div className="hero-caption">
-          <span className="tiny-star">✦</span> ОДНО ПРИЛОЖЕНИЕ.
-          <br />
-          <strong>ВАШИ ЛЮБИМЫЕ ИСТОРИИ.</strong>
-        </div>
-        <div className="hero-phone back-phone">
+      <div className="hero-visual">
+        <div className="hero-halo" aria-hidden="true" />
+        <svg
+          className="sound-orbits"
+          viewBox="0 0 620 750"
+          fill="none"
+          aria-hidden="true"
+        >
+          <ellipse cx="310" cy="375" rx="270" ry="290" />
+          <ellipse cx="310" cy="375" rx="215" ry="345" />
+        </svg>
+        <div
+          className="hero-phone"
+          id="hero-screen"
+          role="tabpanel"
+          aria-labelledby={`hero-tab-${screen}`}
+        >
           <img
-            src={shot(0)}
+            key={current.file}
+            src={shot(heroScreens[screen])}
             width="540"
             height="1200"
-            alt="Каталог аудиокниг Nova в тёмной теме"
+            alt={`${current.title}: настоящий экран Nova`}
             fetchPriority="high"
           />
         </div>
-        <div className="hero-phone front-phone">
-          <img
-            src={shot(5)}
-            width="540"
-            height="1200"
-            alt="Плеер Nova в светлой теме"
-          />
+        <div
+          className="hero-screen-switcher"
+          role="tablist"
+          aria-label="Экраны Nova"
+        >
+          {heroScreens.map((index, i) => (
+            <button
+              key={index}
+              id={`hero-tab-${i}`}
+              role="tab"
+              aria-selected={screen === i}
+              aria-controls="hero-screen"
+              tabIndex={screen === i ? 0 : -1}
+              onClick={() => setScreen(i)}
+              onKeyDown={(event) => {
+                if (
+                  ["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)
+                ) {
+                  event.preventDefault();
+                  const next =
+                    event.key === "Home"
+                      ? 0
+                      : event.key === "End"
+                        ? 2
+                        : (screen + (event.key === "ArrowRight" ? 1 : 2)) % 3;
+                  setScreen(next);
+                  document.getElementById(`hero-tab-${next}`)?.focus();
+                }
+              }}
+            >
+              {screenshots[index].title}
+            </button>
+          ))}
         </div>
-        <a href="#offline" className="floating-note offline-note">
-          <span className="note-icon">
-            <Download size={19} />
-          </span>
-          <span>
-            <strong>Слушайте офлайн</strong>
-            <small>Даже когда сети нет</small>
-          </span>
-          <Check size={16} />
-        </a>
-        <a href="#sleep-timer" className="floating-note timer-note">
-          <Moon size={19} />
-          <span>И ещё одну главу перед сном</span>
-        </a>
-        <span className="visual-counter">01 — ВАША НОВАЯ ПРИВЫЧКА</span>
+        <p className="hero-screen-caption">
+          Настоящий интерфейс. Ваше оформление.
+        </p>
       </div>
     </section>
   );
@@ -313,7 +341,7 @@ function TrustStrip() {
         </span>
         <span>
           <ShieldCheck size={21} />
-          Без рекламных SDK
+          Без рекламы
         </span>
         <span>
           <Cloud size={21} />
@@ -426,11 +454,11 @@ function Showcase() {
     <section className="section container showcase" id="interface">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">01 / ЗАГЛЯНИТЕ ВНУТРЬ</span>
+          <span className="eyebrow">ЗАГЛЯНИТЕ ВНУТРЬ</span>
           <h2>
             Приятно смотреть.
             <br />
-            <span className="muted">Ещё приятнее слушать.</span>
+            <em>Ещё приятнее слушать.</em>
           </h2>
         </div>
         <p>
@@ -500,7 +528,6 @@ function Showcase() {
           id="preview-panel"
           aria-labelledby={`mode-${mode}`}
         >
-          <div className="preview-decoration">nova</div>
           <div className="preview-phone">
             <img
               key={current.image}
@@ -531,112 +558,136 @@ function Showcase() {
     </section>
   );
 }
-function FeatureGrid() {
-  return (
-    <section className="section container" id="features">
-      <div className="section-heading">
-        <div>
-          <span className="eyebrow">02 / ВОЗМОЖНОСТИ</span>
-          <h2>
-            Всё, что нужно
-            <br />
-            для хорошей истории<span className="mint">.</span>
-          </h2>
-        </div>
-        <p>
-          От первой найденной книги
+function FeatureStories() {
+  const stories = [
+    {
+      feature: features[0],
+      image: 3,
+      title: (
+        <>
+          Найдите книгу.
           <br />
-          до привычного вечернего ритуала.
+          <em>Влюбитесь в голос.</em>
+        </>
+      ),
+      points: [
+        "Поиск по одному или нескольким источникам",
+        "Описание, автор, чтец и главы в карточке",
+      ],
+      caption: "Карточка книги · светлая тема",
+      link: "#interface",
+      action: "Рассмотреть интерфейс",
+    },
+    {
+      feature: features[1],
+      image: 4,
+      title: (
+        <>
+          Пусть сеть исчезнет.
+          <br />
+          <em>История останется.</em>
+        </>
+      ),
+      points: [
+        "Загрузка всей книги или отдельных глав",
+        "Управление очередью скачивания",
+      ],
+      caption: "Загруженные книги · тёмная тема",
+      link: "#start",
+      action: "Как начать слушать",
+    },
+    {
+      feature: features[2],
+      image: 5,
+      title: (
+        <>
+          Ещё одну главу.
+          <br />
+          <em>И спокойной ночи.</em>
+        </>
+      ),
+      points: ["Таймер сна с расписанием", "Продление таймера встряхиванием"],
+      caption: "Настройки плеера · фрагмент настоящего экрана",
+      link: "#demo",
+      action: "Попробовать демоплеер",
+    },
+  ];
+  return (
+    <section className="section container feature-stories" id="features">
+      <div className="editorial-intro">
+        <span className="eyebrow">ВАШИ КНИГИ. ВАШ РИТМ.</span>
+        <h2>
+          От «что послушать?»
+          <br />
+          до <em>«ещё одну главу».</em>
+        </h2>
+        <p>
+          Nova помогает найти, сохранить и слушать аудиокниги так, как удобно
+          вам.
         </p>
       </div>
-      <div className="feature-grid">
-        {features.map((feature) => {
-          const Icon = icons[feature.icon];
-          return (
-            <article className="feature-card" id={feature.id} key={feature.id}>
-              <div className="feature-top">
-                <span>{feature.label}</span>
-                <Icon size={25} />
-              </div>
-              <h3>{feature.title}</h3>
-              <p>{feature.text}</p>
-              <details>
-                <summary>
-                  Подробнее <ArrowUpRight size={16} />
-                </summary>
-                <p>{feature.more}</p>
-                <a className="text-link" href="#start">
-                  Как начать <ArrowRight size={15} />
-                </a>
-              </details>
-            </article>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-function Scenarios() {
-  const [active, setActive] = useState(0);
-  const current = scenarios[active];
-  return (
-    <section className="scenario-section" id="scenarios">
-      <div className="container">
-        <div className="scenario-intro">
-          <span className="eyebrow">03 / В ВАШЕМ РИТМЕ</span>
-          <h2>
-            Есть время для жизни.
-            <br />И место для историй.
-          </h2>
-        </div>
-        <div className="scenario-tabs" aria-label="Сценарии использования">
-          {scenarios.map((scenario, i) => {
-            const Icon = icons[scenario.icon];
-            return (
-              <button
-                key={scenario.id}
-                aria-pressed={active === i}
-                onClick={() => setActive(i)}
-              >
-                <Icon size={18} />
-                {scenario.title}
-              </button>
-            );
-          })}
-        </div>
-        <div className="scenario-body">
-          <div className="scenario-illustration">
-            <div className="scene-circle" />
-            <span className="scene-index">0{active + 1}</span>
-            <img
-              key={current.image}
-              src={shot(current.image)}
-              width="540"
-              height="1200"
-              alt={screenshots[current.image].title}
-              loading="lazy"
-            />
-            <span className="scene-label">{current.title}</span>
-          </div>
-          <div className="scenario-copy">
+      {stories.map((story, i) => (
+        <article
+          className={`story story-${i}`}
+          id={story.feature.id}
+          key={story.feature.id}
+        >
+          <div className="story-copy">
             <span className="eyebrow">
-              NOVA / {current.title.toUpperCase()}
+              {["ВЫБИРАЙТЕ", "БЕРИТЕ С СОБОЙ", "ОТДЫХАЙТЕ"][i]}
             </span>
-            <h3>{current.heading}</h3>
-            <p>{current.text}</p>
+            <h3>{story.title}</h3>
+            <p>{story.feature.text}</p>
             <ul>
-              {current.points.map((point) => (
+              {story.points.map((point) => (
                 <li key={point}>
-                  <Check size={18} />
+                  <Check size={16} />
                   {point}
                 </li>
               ))}
             </ul>
-            <a href={current.link} className="text-link">
-              Посмотреть подробнее <ArrowRight size={18} />
+            <a className="text-link" href={story.link}>
+              {story.action}
+              <ArrowUpRight size={18} />
             </a>
+            <details className="story-details">
+              <summary>
+                Подробнее о возможности<span>+</span>
+              </summary>
+              <p>{story.feature.more}</p>
+            </details>
           </div>
-        </div>
+          <figure className="story-visual">
+            <div className={i === 2 ? "story-detail" : "story-phone"}>
+              <img
+                src={shot(story.image)}
+                width="540"
+                height="1200"
+                loading="lazy"
+                alt={story.caption}
+              />
+            </div>
+            <figcaption>{story.caption}</figcaption>
+          </figure>
+        </article>
+      ))}
+      <div className="feature-notes">
+        {features.slice(3).map((feature) => {
+          const Icon = icons[feature.icon];
+          return (
+            <article id={feature.id} key={feature.id}>
+              <Icon size={25} strokeWidth={1.5} />
+              <h3>{feature.title}</h3>
+              <p>{feature.text}</p>
+              <details>
+                <summary>
+                  Подробнее <ArrowUpRight size={15} />
+                </summary>
+                <p>{feature.more}</p>
+              </details>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
@@ -667,7 +718,7 @@ function Gallery() {
     <section className="section container gallery-section">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">05 / ВАШ СТИЛЬ</span>
+          <span className="eyebrow">ВАШ СТИЛЬ</span>
           <h2>
             Рассмотрите Nova
             <br />
@@ -817,7 +868,7 @@ function QuickStart() {
     <section className="section container" id="start">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">06 / НАЧАТЬ ПРОСТО</span>
+          <span className="eyebrow">НАЧАТЬ ПРОСТО</span>
           <h2>
             От знакомства
             <br />
@@ -944,7 +995,7 @@ function FAQ() {
   return (
     <section className="section container faq-section" id="faq">
       <div className="faq-intro">
-        <span className="eyebrow">07 / НА ВСЯКИЙ СЛУЧАЙ</span>
+        <span className="eyebrow">НА ВСЯКИЙ СЛУЧАЙ</span>
         <h2>
           Остались
           <br />
@@ -979,11 +1030,11 @@ function Support() {
       <div className="container">
         <div className="support-heading">
           <div>
-            <span className="eyebrow">08 / ДЕЛАЕМ NOVA ЛУЧШЕ</span>
+            <span className="eyebrow">ДЕЛАЕМ NOVA ЛУЧШЕ</span>
             <h2>
-              Хорошие истории
+              Помогите Nova
               <br />
-              продолжаются вместе<span className="mint">.</span>
+              <em>расти дальше.</em>
             </h2>
           </div>
           <Heart size={65} strokeWidth={1} />
@@ -1096,7 +1147,7 @@ function Footer() {
         <OutLink href={links.privacy}>Конфиденциальность</OutLink>
       </div>
       <div className="footer-bottom">
-        <span>© 2026 Аудиокниги Nova · Schroedinger's Cat</span>
+        <span>© 2026 Аудиокниги Nova · Разработчик: Schroedinger's Cat</span>
         <span>Сделано для тех, кто любит слушать.</span>
       </div>
     </footer>
@@ -1112,10 +1163,9 @@ export default function App() {
       <main>
         <Hero />
         <TrustStrip />
-        <Showcase />
-        <FeatureGrid />
-        <Scenarios />
+        <FeatureStories />
         <AudioDemo />
+        <Showcase />
         <Gallery />
         <Devices />
         <QuickStart />

@@ -120,11 +120,11 @@ export default function AudioDemo() {
   return (
     <section className="section container demo-section" id="demo">
       <div className="demo-copy">
-        <span className="eyebrow">04 / ПОПРОБУЙТЕ САМИ</span>
+        <span className="eyebrow">ПОПРОБУЙТЕ САМИ</span>
         <h2>
-          Знакомый плеер.
+          Сначала —
           <br />
-          <span className="muted">Живая история.</span>
+          <em>послушайте.</em>
         </h2>
         <p>
           Послушайте фрагмент, измените скорость, сохраните место. Управление
