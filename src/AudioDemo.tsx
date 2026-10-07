@@ -20,6 +20,8 @@ import {
   Volume2,
 } from "lucide-react";
 
+import SoundVisual from "./SoundVisual";
+
 const timeText = (seconds: number) =>
   `${Math.floor(seconds / 60)
     .toString()
@@ -33,6 +35,7 @@ export default function AudioDemo() {
     context: AudioContext;
     bass: BiquadFilterNode;
     treble: BiquadFilterNode;
+    analyser: AnalyserNode;
   } | null>(null);
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
@@ -81,7 +84,7 @@ export default function AudioDemo() {
     audio.current.currentTime = Math.max(0, Math.min(value, duration));
     setTime(audio.current.currentTime);
   };
-  const configureEq = async (preset: string) => {
+  const ensureGraph = () => {
     if (!audio.current) return;
     if (!graph.current) {
       const context = new AudioContext();
@@ -92,9 +95,20 @@ export default function AudioDemo() {
       const treble = context.createBiquadFilter();
       treble.type = "highshelf";
       treble.frequency.value = 2800;
-      source.connect(bass).connect(treble).connect(context.destination);
-      graph.current = { context, bass, treble };
+      const analyser = context.createAnalyser();
+      analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = 0.82;
+      source
+        .connect(bass)
+        .connect(treble)
+        .connect(analyser)
+        .connect(context.destination);
+      graph.current = { context, bass, treble, analyser };
     }
+  };
+  const configureEq = async (preset: string) => {
+    ensureGraph();
+    if (!graph.current) return;
     await graph.current.context.resume();
     graph.current.bass.gain.value =
       preset === "warm" ? 4 : preset === "clear" ? -3 : 0;
@@ -109,6 +123,11 @@ export default function AudioDemo() {
       return;
     }
     try {
+      try {
+        ensureGraph();
+      } catch {
+        /* Audio remains playable without Web Audio support. */
+      }
       if (graph.current) await graph.current.context.resume();
       if (audio.current.ended) seek(0);
       await audio.current.play();
@@ -130,6 +149,10 @@ export default function AudioDemo() {
           Послушайте фрагмент, измените скорость, сохраните место. Управление
           расположено так же, как в Nova — всё нужное под рукой.
         </p>
+        <SoundVisual
+          analyser={graph.current?.analyser || null}
+          playing={playing}
+        />
         <div className="demo-explainer">
           <Headphones size={21} />
           <span>

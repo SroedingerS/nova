@@ -3,7 +3,6 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
-  BookOpen,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -32,6 +31,7 @@ import { faqs, features, links, screenshots } from "./content";
 import release from "./release.json";
 import AudioDemo from "./AudioDemo";
 import BankSupport from "./BankSupport";
+import HeroExperience from "./HeroExperience";
 
 const asset = (file: string) => `${import.meta.env.BASE_URL}${file}`;
 const icons: Record<string, LucideIcon> = {
@@ -95,6 +95,29 @@ function DownloadLink({
   );
 }
 function Header() {
+  const progress = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      progress.current?.style.setProperty(
+        "--page-progress",
+        String(total > 0 ? window.scrollY / total : 0),
+      );
+      frame = 0;
+    };
+    const scroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", scroll, { passive: true });
+    window.addEventListener("resize", scroll);
+    return () => {
+      window.removeEventListener("scroll", scroll);
+      window.removeEventListener("resize", scroll);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   useEffect(() => {
@@ -133,6 +156,7 @@ function Header() {
   }, [open]);
   return (
     <header className="header">
+      <div className="page-progress" ref={progress} aria-hidden="true" />
       <div className="container header-inner">
         <a className="brand" href="#top" aria-label="Nova — на главную">
           <img src={asset("nova-icon.webp")} width="38" height="38" alt="" />
@@ -212,123 +236,6 @@ function Header() {
         </dialog>
       </div>
     </header>
-  );
-}
-const heroScreens = [0, 2, 5];
-function Hero() {
-  const [screen, setScreen] = useState(0);
-  const current = screenshots[heroScreens[screen]];
-  return (
-    <section className="hero container" id="top">
-      <div className="hero-copy">
-        <div className="eyebrow">
-          <span className="status-dot" /> АУДИОКНИГИ NOVA · ДЛЯ ANDROID
-        </div>
-        <h1>
-          Истории,
-          <br />
-          которые
-          <br />
-          <em>всегда рядом.</em>
-        </h1>
-        <p className="hero-lead">
-          Откройте книгу. Найдите любимый голос.
-          <br className="desktop-br" /> Заберите историю с собой — в дорогу,
-          <br className="desktop-br" /> домой, в тихий вечер.
-        </p>
-        <div className="hero-buttons">
-          <DownloadLink />
-          <a className="listen-link" href="#demo">
-            <span>
-              <Play size={17} fill="currentColor" />
-            </span>
-            Послушать демо
-          </a>
-        </div>
-        <div className="hero-proof">
-          <span>
-            <Check size={14} />
-            Бесплатно
-          </span>
-          <span>
-            <Check size={14} />
-            Без рекламы
-          </span>
-          <span>
-            <Check size={14} />
-            Android 6.0+
-          </span>
-        </div>
-        <a href="#features" className="explore-link">
-          <ArrowDown size={18} />
-          Знакомство с Nova
-        </a>
-      </div>
-      <div className="hero-visual">
-        <div className="hero-halo" aria-hidden="true" />
-        <svg
-          className="sound-orbits"
-          viewBox="0 0 620 750"
-          fill="none"
-          aria-hidden="true"
-        >
-          <ellipse cx="310" cy="375" rx="270" ry="290" />
-          <ellipse cx="310" cy="375" rx="215" ry="345" />
-        </svg>
-        <div
-          className="hero-phone"
-          id="hero-screen"
-          role="tabpanel"
-          aria-labelledby={`hero-tab-${screen}`}
-        >
-          <img
-            key={current.file}
-            src={shot(heroScreens[screen])}
-            width="540"
-            height="1200"
-            alt={`${current.title}: настоящий экран Nova`}
-            fetchPriority="high"
-          />
-        </div>
-        <div
-          className="hero-screen-switcher"
-          role="tablist"
-          aria-label="Экраны Nova"
-        >
-          {heroScreens.map((index, i) => (
-            <button
-              key={index}
-              id={`hero-tab-${i}`}
-              role="tab"
-              aria-selected={screen === i}
-              aria-controls="hero-screen"
-              tabIndex={screen === i ? 0 : -1}
-              onClick={() => setScreen(i)}
-              onKeyDown={(event) => {
-                if (
-                  ["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)
-                ) {
-                  event.preventDefault();
-                  const next =
-                    event.key === "Home"
-                      ? 0
-                      : event.key === "End"
-                        ? 2
-                        : (screen + (event.key === "ArrowRight" ? 1 : 2)) % 3;
-                  setScreen(next);
-                  document.getElementById(`hero-tab-${next}`)?.focus();
-                }
-              }}
-            >
-              {screenshots[index].title}
-            </button>
-          ))}
-        </div>
-        <p className="hero-screen-caption">
-          Настоящий интерфейс. Ваше оформление.
-        </p>
-      </div>
-    </section>
   );
 }
 function TrustStrip() {
@@ -559,6 +466,24 @@ function Showcase() {
   );
 }
 function FeatureStories() {
+  const [activeStory, setActiveStory] = useState(0);
+  const [enhanced, setEnhanced] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting)
+            setActiveStory(Number((entry.target as HTMLElement).dataset.story));
+        });
+      },
+      { rootMargin: "-28% 0px -40% 0px", threshold: 0 },
+    );
+    document
+      .querySelectorAll("[data-story]")
+      .forEach((element) => observer.observe(element));
+    setEnhanced(true);
+    return () => observer.disconnect();
+  }, []);
   const stories = [
     {
       feature: features[0],
@@ -607,7 +532,7 @@ function FeatureStories() {
         </>
       ),
       points: ["Таймер сна с расписанием", "Продление таймера встряхиванием"],
-      caption: "Настройки плеера · фрагмент настоящего экрана",
+      caption: "Плеер Nova · светлая тема",
       link: "#demo",
       action: "Попробовать демоплеер",
     },
@@ -626,51 +551,86 @@ function FeatureStories() {
           вам.
         </p>
       </div>
-      {stories.map((story, i) => (
-        <article
-          className={`story story-${i}`}
-          id={story.feature.id}
-          key={story.feature.id}
-        >
-          <div className="story-copy">
-            <span className="eyebrow">
-              {["ВЫБИРАЙТЕ", "БЕРИТЕ С СОБОЙ", "ОТДЫХАЙТЕ"][i]}
-            </span>
-            <h3>{story.title}</h3>
-            <p>{story.feature.text}</p>
-            <ul>
-              {story.points.map((point) => (
-                <li key={point}>
-                  <Check size={16} />
-                  {point}
-                </li>
-              ))}
-            </ul>
-            <a className="text-link" href={story.link}>
-              {story.action}
-              <ArrowUpRight size={18} />
-            </a>
-            <details className="story-details">
-              <summary>
-                Подробнее о возможности<span>+</span>
-              </summary>
-              <p>{story.feature.more}</p>
-            </details>
-          </div>
-          <figure className="story-visual">
-            <div className={i === 2 ? "story-detail" : "story-phone"}>
+      <div className={`journey ${enhanced ? "journey-enhanced" : ""}`}>
+        <div className="journey-scenes">
+          {stories.map((story, i) => (
+            <article
+              className={`story journey-scene ${activeStory === i ? "in-focus" : ""}`}
+              data-story={i}
+              id={story.feature.id}
+              key={story.feature.id}
+            >
+              <div className="story-copy">
+                <span className="eyebrow">
+                  {["ВЫБИРАЙТЕ", "БЕРИТЕ С СОБОЙ", "ОТДЫХАЙТЕ"][i]}
+                </span>
+                <h3>{story.title}</h3>
+                <p>{story.feature.text}</p>
+                <ul>
+                  {story.points.map((point) => (
+                    <li key={point}>
+                      <Check size={16} />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+                <a className="text-link" href={story.link}>
+                  {story.action}
+                  <ArrowUpRight size={18} />
+                </a>
+                <details className="story-details">
+                  <summary>
+                    Подробнее о возможности<span>+</span>
+                  </summary>
+                  <p>{story.feature.more}</p>
+                </details>
+              </div>
+              <figure className="story-visual">
+                <div className="story-phone">
+                  <img
+                    src={shot(story.image)}
+                    width="540"
+                    height="1200"
+                    loading="lazy"
+                    alt={story.caption}
+                  />
+                </div>
+                <figcaption>{story.caption}</figcaption>
+              </figure>
+            </article>
+          ))}
+        </div>
+        <div className={`journey-stage journey-phase-${activeStory}`}>
+          <div className="journey-glow" aria-hidden="true" />
+          <div className="journey-device">
+            {stories.map((story, i) => (
               <img
+                key={story.image}
                 src={shot(story.image)}
                 width="540"
                 height="1200"
+                alt={i === activeStory ? story.caption : ""}
+                aria-hidden={i !== activeStory}
+                className={activeStory === i ? "visible" : ""}
                 loading="lazy"
-                alt={story.caption}
               />
-            </div>
-            <figcaption>{story.caption}</figcaption>
-          </figure>
-        </article>
-      ))}
+            ))}
+          </div>
+          <nav className="journey-nav" aria-label="Возможности в деталях">
+            {stories.map((story, i) => (
+              <a
+                key={story.feature.id}
+                href={`#${story.feature.id}`}
+                aria-current={activeStory === i ? "step" : undefined}
+              >
+                <span>0{i + 1}</span>
+                {["Выбирайте", "Скачивайте", "Слушайте"][i]}
+              </a>
+            ))}
+          </nav>
+          <p className="journey-caption">{stories[activeStory].caption}</p>
+        </div>
+      </div>
       <div className="feature-notes">
         {features.slice(3).map((feature) => {
           const Icon = icons[feature.icon];
@@ -693,6 +653,18 @@ function FeatureStories() {
   );
 }
 function Gallery() {
+  const track = useRef<HTMLDivElement>(null);
+  const [galleryEdges, setGalleryEdges] = useState({ start: true, end: false });
+  const galleryScroll = (direction: number) => {
+    const element = track.current;
+    if (element)
+      element.scrollBy({
+        left: direction * Math.min(element.clientWidth * 0.8, 700),
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
+      });
+  };
   const [selected, setSelected] = useState<number | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const touch = useRef<number | null>(null);
@@ -733,12 +705,41 @@ function Gallery() {
       </div>
       <div className="gallery-toolbar">
         <span>8 экранов приложения</span>
-        <span>
-          <ArrowRight size={16} />
-          Листайте галерею
-        </span>
+        <div className="gallery-navigation">
+          <button
+            aria-label="Прокрутить галерею назад"
+            disabled={galleryEdges.start}
+            onClick={() => galleryScroll(-1)}
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <button
+            aria-label="Прокрутить галерею вперёд"
+            disabled={galleryEdges.end}
+            onClick={() => galleryScroll(1)}
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
       </div>
-      <div className="gallery-track">
+      <div
+        className="gallery-track"
+        ref={track}
+        onScroll={(event) => {
+          const element = event.currentTarget;
+          const next = {
+            start: element.scrollLeft < 2,
+            end:
+              element.scrollLeft + element.clientWidth >=
+              element.scrollWidth - 2,
+          };
+          setGalleryEdges((previous) =>
+            previous.start === next.start && previous.end === next.end
+              ? previous
+              : next,
+          );
+        }}
+      >
         {screenshots.map((item, i) => (
           <button
             className="gallery-card"
@@ -1154,6 +1155,29 @@ function Footer() {
   );
 }
 export default function App() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08 },
+    );
+    document
+      .querySelectorAll(
+        ".section-heading, .feature-notes > article, .step, .bank-card",
+      )
+      .forEach((element) => {
+        element.classList.add("reveal-ready");
+        observer.observe(element);
+      });
+    return () => observer.disconnect();
+  }, []);
   return (
     <>
       <a className="skip-link" href="#features">
@@ -1161,10 +1185,12 @@ export default function App() {
       </a>
       <Header />
       <main>
-        <Hero />
+        <HeroExperience />
         <TrustStrip />
         <FeatureStories />
-        <AudioDemo />
+        <div className="listen-area">
+          <AudioDemo />
+        </div>
         <Showcase />
         <Gallery />
         <Devices />
