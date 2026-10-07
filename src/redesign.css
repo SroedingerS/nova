@@ -292,6 +292,7 @@ body {
   color: #b9aacb;
 }
 .support-grid article {
+  padding: 25px;
   background: #21192e;
   border-color: #c0a0e127;
   border-radius: 20px;
