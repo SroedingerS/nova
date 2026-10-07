@@ -662,7 +662,7 @@ body {
     font-size: 14px;
   }
   .demo-section {
-    padding-block: 60px;
+    padding-block: 40px;
     gap: 75px;
     grid-template-columns: 1fr 1.05fr;
   }
