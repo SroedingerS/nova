@@ -662,8 +662,33 @@ body {
     font-size: 14px;
   }
   .demo-section {
+    padding-block: 60px;
     gap: 75px;
     grid-template-columns: 1fr 1.05fr;
+  }
+  .nova-book {
+    grid-template-columns: 120px 1fr;
+  }
+  .nova-player-toolbar {
+    margin-bottom: 12px;
+  }
+  .nova-book-info > small {
+    margin-top: 12px;
+  }
+  .nova-book-meta {
+    margin-top: 14px;
+  }
+  .nova-bookmarks {
+    margin-top: 10px;
+  }
+  .nova-series {
+    padding-block: 10px;
+  }
+  .nova-settings {
+    padding-block: 8px;
+  }
+  .nova-settings > label {
+    gap: 5px;
   }
   .demo-copy > p {
     font-size: 16px;
