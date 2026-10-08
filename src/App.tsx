@@ -949,7 +949,7 @@ function DownloadSection() {
   return (
     <section className="container download-section" id="download">
       <div className="download-copy">
-        <span className="eyebrow">СЛЕДУЮЩАЯ ИСТОРИЯ НАЧИНАЕТСЯ СЕЙЧАС</span>
+        <span className="eyebrow">СКАЧАТЬ АУДИОКНИГИ NOVA ДЛЯ ANDROID</span>
         <h2>
           Ваша книга
           <br />
@@ -1070,8 +1070,8 @@ function Support() {
             </span>
             <h3>Вопросы и ошибки</h3>
             <p>
-              Нужна помощь с приложением? Задайте вопрос, сообщите об ошибке
-              или предложите улучшение в сообществе Nova.
+              Нужна помощь с приложением? Задайте вопрос, сообщите об ошибке или
+              предложите улучшение в сообществе Nova.
             </p>
             <OutLink href={links.telegram} className="text-link">
               Сообщество в Telegram <ArrowUpRight size={17} />

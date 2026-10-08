@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0e0d12" />
-    <title>Аудиокниги Nova — ваши книги, ваш ритм</title>
+    <title>Nova — аудиокниги для Android, онлайн и офлайн</title>
     <meta
       name="description"
-      content="Находите аудиокниги, слушайте онлайн и скачивайте в дорогу. Nova для Android: удобный плеер, таймер сна, личная библиотека и синхронизация. Бесплатно, без рекламы."
+      content="Скачайте Аудиокниги Nova для Android: слушайте книги онлайн и офлайн, сохраняйте главы, настраивайте скорость и таймер сна. Бесплатно, без рекламы."
     />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link
       rel="preload"
       href="%BASE_URL%fonts/lora-cyrillic.woff2"
@@ -30,11 +31,11 @@
     <meta property="og:locale" content="ru_RU" />
     <meta
       property="og:title"
-      content="Аудиокниги Nova — ваши книги, ваш ритм"
+      content="Nova — аудиокниги для Android, онлайн и офлайн"
     />
     <meta
       property="og:description"
-      content="Истории, которые всегда с вами. Слушайте онлайн, скачивайте главы и настройте Nova под себя."
+      content="Скачайте Аудиокниги Nova для Android: слушайте книги онлайн и офлайн, сохраняйте главы, настраивайте скорость и таймер сна. Бесплатно, без рекламы."
     />
     <meta property="og:url" content="https://sroedingers.github.io/nova/" />
     <meta
@@ -43,14 +44,53 @@
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Аудиокниги Nova для Android — настоящий экран каталога приложения"
+    />
     <meta name="twitter:card" content="summary_large_image" />
-    <script type="application/ld+json">
+    <meta
+      name="twitter:title"
+      content="Nova — аудиокниги для Android, онлайн и офлайн"
+    />
+    <meta
+      name="twitter:description"
+      content="Слушайте аудиокниги онлайн и офлайн, настройте скорость и таймер сна. Nova для Android — бесплатно, без рекламы."
+    />
+    <meta
+      name="twitter:image"
+      content="https://sroedingers.github.io/nova/og-image.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Аудиокниги Nova для Android — настоящий экран каталога приложения"
+    />
+    <script type="application/ld+json" id="nova-application">
       {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
+        "@id": "https://sroedingers.github.io/nova/#application",
         "name": "Аудиокниги Nova",
+        "description": "Бесплатное приложение для аудиокниг на Android: поиск по источникам, онлайн- и офлайн-прослушивание, личная библиотека, настройки звука и таймер сна. Без рекламы.",
         "operatingSystem": "Android 6.0+",
         "applicationCategory": "MultimediaApplication",
+        "inLanguage": "ru",
+        "author": { "@type": "Person", "name": "Schroedinger's Cat" },
+        "image": "https://sroedingers.github.io/nova/nova-icon.webp",
+        "screenshot": [
+          "https://sroedingers.github.io/nova/screenshots/screen-1.webp",
+          "https://sroedingers.github.io/nova/screenshots/screen-3.webp",
+          "https://sroedingers.github.io/nova/screenshots/screen-6.webp"
+        ],
+        "featureList": [
+          "Поиск аудиокниг по одному или нескольким источникам",
+          "Онлайн- и офлайн-прослушивание",
+          "Загрузка книги целиком или отдельных глав",
+          "Регулировка скорости, эквалайзер и таймер сна",
+          "Личная библиотека и резервное копирование",
+          "Телефоны, планшеты и Android TV"
+        ],
+        "isAccessibleForFree": true,
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" },
         "url": "https://sroedingers.github.io/nova/",
         "downloadUrl": "https://github.com/SroedingerS/AudiobooksNova-Releases/releases/latest"
