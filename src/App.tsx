@@ -50,7 +50,7 @@ const nav = [
   { href: "#interface", label: "Интерфейс" },
   { href: "#demo", label: "Плеер" },
   { href: "#start", label: "Как начать" },
-  { href: "#support", label: "Поддержка" },
+  { href: "#support", label: "Поддержать проект" },
 ];
 const shot = (index: number) => asset(`screenshots/${screenshots[index].file}`);
 const date = new Intl.DateTimeFormat("ru-RU", {
@@ -1031,7 +1031,7 @@ function Support() {
       <div className="container">
         <div className="support-heading">
           <div>
-            <span className="eyebrow">ДЕЛАЕМ NOVA ЛУЧШЕ</span>
+            <span className="eyebrow">ПОДДЕРЖАТЬ ПРОЕКТ</span>
             <h2>
               Помогите Nova
               <br />
@@ -1041,9 +1041,9 @@ function Support() {
           <Heart size={65} strokeWidth={1} />
         </div>
         <p className="support-lead">
-          Nova развивается благодаря обратной связи и поддержке.
+          Добровольные пожертвования помогают развивать Nova.
           <br />
-          Если вам нравится приложение, помогите ему стать ещё лучше.
+          Если вам нравится приложение, поддержите его разработку.
         </p>
         <BankSupport />
         <div className="support-grid">
@@ -1068,10 +1068,10 @@ function Support() {
             <span className="support-icon">
               <MessageCircle size={24} />
             </span>
-            <h3>Предложить улучшение</h3>
+            <h3>Вопросы и ошибки</h3>
             <p>
-              Поделитесь идеей, расскажите о проблеме или присоединитесь к
-              обсуждению.
+              Нужна помощь с приложением? Задайте вопрос, сообщите об ошибке
+              или предложите улучшение в сообществе Nova.
             </p>
             <OutLink href={links.telegram} className="text-link">
               Сообщество в Telegram <ArrowUpRight size={17} />
