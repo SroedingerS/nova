@@ -78,8 +78,9 @@ export default function HeroExperience() {
             <em>возвращаются.</em>
           </h1>
           <p className="launch-lead">
-            Nova — аудиокниги для Android. Выберите книгу и любимый голос:
-            приложение сохранит ваше место — дома, в дороге и в тихий вечер.
+            Nova — аудиокниги и текстовые книги для Android. Слушайте любимый
+            голос или читайте сами: приложение сохранит ваше место — дома,
+            в дороге и в тихий вечер.
           </p>
           <div className="launch-actions">
             <a className="button primary" href={release.apk}>

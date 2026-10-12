@@ -550,6 +550,12 @@ details > summary::-webkit-details-marker {
   padding-top: 8px;
   font-size: 13px;
 }
+.feature-notes #reader {
+  grid-column: 1 / -1;
+}
+.feature-notes #reader p {
+  max-width: 78ch;
+}
 .demo-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
