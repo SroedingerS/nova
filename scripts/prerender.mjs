@@ -1,5 +1,5 @@
-import { readFile, writeFile } from "node:fs/promises";
-import { html } from "../.prerender/prerender.js";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { html, guideHtml } from "../.prerender/prerender.js";
 const template = await readFile("dist/index.html", "utf8");
 const release = JSON.parse(await readFile("src/release.json", "utf8"));
 const metadataPattern =
@@ -22,6 +22,39 @@ const page = template
   )
   .replace("<!--app-html-->", html);
 await writeFile("dist/index.html", page);
+const guideTitle = "Инструкция Nova — слушать, читать и настроить под себя";
+const guideDescription =
+  "Путеводитель по Nova: читалка, плеер, скачивание, библиотека и настройки. Поиск по вопросам, короткие инструкции и настоящие экраны приложения.";
+const guidePage = template
+  .replace(/<title>[\s\S]*?<\/title>/, `<title>${guideTitle}</title>`)
+  .replace(
+    /(<meta (?:name="description"|property="og:description"|name="twitter:description") content=")[^"]*(")/g,
+    `$1${guideDescription}$2`,
+  )
+  .replace(
+    /(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*(")/g,
+    `$1${guideTitle}$2`,
+  )
+  .replace(
+    /https:\/\/sroedingers\.github\.io\/nova\/(?=")/g,
+    "https://sroedingers.github.io/nova/guide/",
+  )
+  .replace(
+    metadataPattern,
+    '<script type="application/ld+json">' +
+      JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: guideTitle,
+        description: guideDescription,
+        url: "https://sroedingers.github.io/nova/guide/",
+        inLanguage: "ru",
+      }) +
+      "</script>",
+  )
+  .replace("<!--app-html-->", guideHtml);
+await mkdir("dist/guide", { recursive: true });
+await writeFile("dist/guide/index.html", guidePage);
 await writeFile(
   "dist/404.html",
   page.replace(

@@ -32,6 +32,7 @@ import release from "./release.json";
 import AudioDemo from "./AudioDemo";
 import BankSupport from "./BankSupport";
 import HeroExperience from "./HeroExperience";
+import ReaderShowcase from "./ReaderShowcase";
 
 const asset = (file: string) => `${import.meta.env.BASE_URL}${file}`;
 const icons: Record<string, LucideIcon> = {
@@ -51,7 +52,8 @@ const nav = [
   { href: "#demo", label: "Плеер" },
   { href: "#reader", label: "Читалка" },
   { href: "#start", label: "Как начать" },
-  { href: "#support", label: "Поддержать проект" },
+  { href: `${import.meta.env.BASE_URL}guide/`, label: "Инструкция" },
+  { href: "#support", label: "Поддержать" },
 ];
 const shot = (index: number) => asset(`screenshots/${screenshots[index].file}`);
 const date = new Intl.DateTimeFormat("ru-RU", {
@@ -134,6 +136,7 @@ function Header() {
       "interface",
       "features",
       "demo",
+      "reader",
       "start",
       "support",
     ]) {
@@ -633,7 +636,7 @@ function FeatureStories() {
         </div>
       </div>
       <div className="feature-notes">
-        {features.slice(3).map((feature) => {
+        {features.slice(3).filter(feature => feature.id !== 'reader').map((feature) => {
           const Icon = icons[feature.icon];
           return (
             <article id={feature.id} key={feature.id}>
@@ -1147,6 +1150,7 @@ function Footer() {
         </a>
       </div>
       <div className="footer-links">
+        <a href={`${import.meta.env.BASE_URL}guide/`}>Инструкция</a>
         <OutLink href={links.github}>GitHub</OutLink>
         <OutLink href={links.telegram}>Telegram</OutLink>
         <OutLink href={links.forum}>4PDA</OutLink>
@@ -1198,9 +1202,14 @@ export default function App() {
           <AudioDemo />
         </div>
         <Showcase />
+        <ReaderShowcase />
         <Gallery />
         <Devices />
         <QuickStart />
+        <section className="container guide-teaser">
+          <div><span className="eyebrow">РАЗОБРАТЬСЯ БЕЗ СПЕШКИ</span><h2>У каждой настройки — свой смысл.</h2><p>Как взять книгу в дорогу, подобрать голос или перенести библиотеку? В инструкции — короткие шаги, реальные экраны и поиск по вашим вопросам.</p></div>
+          <a className="button" href={`${import.meta.env.BASE_URL}guide/`}>Открыть инструкцию <ArrowUpRight size={18} /></a>
+        </section>
         <DownloadSection />
         <FAQ />
         <Support />

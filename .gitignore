@@ -1,6 +1,8 @@
 node_modules/
 dist/
 .prerender/
+portable-preview/
+review/
 *.log
 .env*
 !.env.example

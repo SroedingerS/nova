@@ -8,7 +8,8 @@
     "build": "tsc --noEmit && vite build && vite build --ssr src/prerender.tsx --outDir .prerender && node scripts/prerender.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "sync-release": "node scripts/sync-release.mjs",
-    "test": "node --test scripts/release.test.mjs"
+    "test": "node --test scripts/release.test.mjs",
+    "test:guide": "node --test scripts/guide.test.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.577.0",

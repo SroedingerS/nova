@@ -1,6 +1,26 @@
-# Аудиокниги Nova — сайт знакомства
+# Аудиокниги Nova — сайт и инструкция
 
-Адаптивный одностраничный сайт на React, TypeScript и Vite. Публикация: https://sroedingers.github.io/nova/
+## Локальный вариант с инструкцией · 26 октября 2026
+
+Добавлен отдельный адрес `/nova/guide/`: 41 практическая статья, 128 названий настроек,
+поиск по словам и синонимам, фильтр разделов, связанные статьи и ссылки на конкретную
+подсказку. Тексты предварительно рендерятся в HTML. На главной — четыре настоящих
+снимка читалки Nova 3.0.1h с переключением и увеличением.
+
+Проверка: `npm run build`, `npm test`, `npm run test:guide`.
+Для просмотра без сервера: после сборки `node scripts/portable-preview.mjs`, затем
+открыть `portable-preview/index.html` или `portable-preview/guide/index.html`.
+Для GitHub Pages используется обычный `dist/`, а не portable-preview.
+
+Содержимое инструкции: `src/guide-data.ts`; навигатор настроек:
+`src/guide-settings.json`; интерфейс: `src/Guide.tsx`; оформление: `src/Guide.css`;
+блок читалки: `src/ReaderShowcase.tsx`; снимки: `public/reader/`.
+Источники, ограничения проверки и правила обновления: `GUIDE-CONTENT.md`.
+
+Вариант подготовлен и проверен в отдельной локальной копии. Публикация выполняется
+существующим процессом GitHub Pages из ветки `main`.
+
+Адаптивный сайт с отдельной инструкцией на React, TypeScript и Vite. Публикация: https://sroedingers.github.io/nova/
 
 ## Запуск
 
