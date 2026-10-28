@@ -14,6 +14,7 @@ import {
 import {
   guideArticles,
   guideCategories,
+  guideReviewedVersion,
   matchesGuide,
   normalizeGuideQuery,
   type GuideCategory,
@@ -264,7 +265,7 @@ export default function Guide() {
               <ArrowUpRight size={16} />
             </a>
             <p className="guide-version">
-              По возможностям Nova 3.0.1h.
+              По возможностям Nova {guideReviewedVersion}.
               <br />
               Вид экранов зависит от устройства и темы.
             </p>
