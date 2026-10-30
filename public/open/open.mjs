@@ -58,7 +58,8 @@ export function recommendation(search,hash='') {
 
 if (typeof document !== 'undefined') {
   const book = recommendation(location.search,location.hash);
-  if (book && location.hash) document.getElementById('note').textContent=
+  const note=document.getElementById('note');
+  if (book && location.hash && note) note.textContent=
     'Для коротких ссылок нужна Nova 3.0.1n или новее. Прежние ссылки остаются доступны. Если приложение ещё не установлено, скачайте его с официальной страницы.';
   document.getElementById('title').textContent = book?.title || 'Ссылка не распознана';
   document.getElementById('description').textContent = book?.description ||
