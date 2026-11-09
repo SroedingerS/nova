@@ -1001,17 +1001,52 @@
     "device": "Все устройства"
   },
   {
-    "title": "Компактный виджет 3 × 1",
-    "path": "Устройства",
-    "article": "widgets",
-    "keywords": "рабочий экран виджет",
-    "device": "Все устройства"
-  },
-  {
     "title": "Выбор нескольких текстовых книг",
     "path": "Библиотека",
     "article": "reader-import",
     "keywords": "импорт файлы выбор",
+    "device": "Все устройства"
+  },
+  {
+    "title": "Android Auto",
+    "path": "Плеер",
+    "article": "android-auto",
+    "keywords": "машина автомобиль магнитола",
+    "device": "Телефон с Android Auto"
+  },
+  {
+    "title": "Фильтры и подборки библиотеки",
+    "path": "Библиотека",
+    "article": "library-collections",
+    "keywords": "жанры свои списки организация",
+    "device": "Все устройства"
+  },
+  {
+    "title": "Описание из папки книги",
+    "path": "Библиотека",
+    "article": "local-description",
+    "keywords": "description.txt описание.txt аннотация",
+    "device": "Все устройства"
+  },
+  {
+    "title": "Чтецы в поиске",
+    "path": "Поиск → Чтецы",
+    "article": "narrator-filter",
+    "keywords": "диктор озвучка оставить скрыть",
+    "device": "Все устройства"
+  },
+  {
+    "title": "Сопоставить следующие главы по порядку",
+    "path": "Читалка → Сопоставление",
+    "article": "sequential-chapters",
+    "keywords": "пары главы аудио текст",
+    "device": "Все устройства"
+  },
+  {
+    "title": "Цвет-основа · HEX",
+    "path": "Оформление → Выбор цвета",
+    "article": "appearance",
+    "keywords": "точный цвет hex код",
     "device": "Все устройства"
   }
 ]
