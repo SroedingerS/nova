@@ -330,6 +330,9 @@ export default function Guide() {
                           <li key={step}>{step}</li>
                         ))}
                       </ol>
+                      {article.id === "updates" && (
+                        <p><a href={links.rustore} target="_blank" rel="noopener noreferrer">Открыть Nova в RuStore</a></p>
+                      )}
                       {article.note && (
                         <p className="guide-note">
                           <span>НА ЗАМЕТКУ</span>

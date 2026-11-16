@@ -971,6 +971,9 @@ function DownloadSection() {
         </p>
         <div className="download-buttons">
           <DownloadLink />
+          <OutLink href={links.rustore} className="button secondary">
+            Установить из RuStore <ArrowUpRight size={17} />
+          </OutLink>
           <OutLink href={links.releases} className="button secondary">
             Все файлы релиза <ArrowUpRight size={17} />
           </OutLink>
