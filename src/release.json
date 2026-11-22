@@ -1,7 +1,7 @@
 {
-  "version": "3.0.2r",
-  "size": 15618030,
-  "publishedAt": "2026-11-22T18:56:06Z",
   "url": "https://github.com/SroedingerS/AudiobooksNova-Releases/releases/tag/v3.0.2r",
-  "apk": "https://github.com/SroedingerS/AudiobooksNova-Releases/releases/download/v3.0.2r/AudiobooksNova-3.0.2r.apk"
+  "publishedAt": "2026-11-22T18:56:06Z",
+  "version": "3.0.2r",
+  "apk": "https://github.com/SroedingerS/AudiobooksNova-Releases/releases/download/v3.0.2r/AudiobooksNova-3.0.2r.apk",
+  "size": 15618030
 }
