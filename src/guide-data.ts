@@ -1,5 +1,5 @@
 // Reviewed content version; screenshot captions keep their original version.
-export const guideReviewedVersion = "3.0.2r";
+export const guideReviewedVersion = "3.0.2s";
 export type GuideCategory =
   "start" | "listen" | "read" | "library" | "personal" | "help";
 export interface GuideArticle {
